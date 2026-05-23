@@ -7,7 +7,7 @@ const CERTIFICATE_KEY = 'plastic_awareness_certificate'
 const IMPACT_KEY = 'plastic_awareness_impact_seen'
 const SHEET_QUEUE_KEY = 'plastic_awareness_sheet_queue'
 // Paste the deployed Google Apps Script Web App URL here after deploying google-sheet-web-app.gs.
-const GOOGLE_SHEET_WEB_APP_URL = ''
+const GOOGLE_SHEET_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw7yGuG-G-VOQelsv0U2pmDmv3dcSC8llJPAuKLwWvaEJnEk0kwPkJZ5FjrV42n497nvQ/exec'
 
 const state = {
   lang: localStorage.getItem(LANGUAGE_KEY) || 'en',

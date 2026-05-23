@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plastic Awareness</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark"></span>
+          <span>Namma Ooru Namma Poruppu</span>
+        </div>
+        <div class="top-actions">
+          <button id="languageToggle" class="ghost-button" type="button">தமிழ்</button>
+          <button id="signOutButton" class="ghost-button hidden" type="button" data-i18n="signOut">
+            Sign out
+          </button>
+        </div>
+      </header>
+
+      <section id="loginView" class="hero-grid hidden">
+        <section class="hero-copy">
+          <p class="eyebrow" data-i18n="tagline">Namma Ooru Namma Poruppu</p>
+          <h1 data-i18n="heroTitle">Namma Ooru. Namma Poruppu.</h1>
+          <p class="kural" data-i18n="kural">
+            தூய்மை பாதுகாப்பு; பொறுப்பு நம்மில் தொடங்கும்.
+          </p>
+          <button id="startRegistrationButton" class="primary-button google-button" type="button">
+            <span class="button-icon">✓</span>
+            <span data-i18n="startRegister">Register now</span>
+          </button>
+          <article class="awareness-article">
+            <h2 data-i18n="articleTitle">Why this matters</h2>
+            <p data-i18n="articleBody">
+              Plastic thrown near beaches and water bodies can travel into the sea, where fish,
+              turtles, birds, and other animals may eat it or become trapped in it. Using a dustbin
+              and recording every bottle creates proof of participation and builds a cleaner public
+              habit.
+            </p>
+          </article>
+          <div class="hero-metrics" aria-label="Campaign highlights">
+            <div>
+              <strong>50</strong>
+              <span>bottles unlock a certificate</span>
+            </div>
+            <div>
+              <strong>10</strong>
+              <span>points for every bottle</span>
+            </div>
+            <div>
+              <strong>1</strong>
+              <span>clean action starts here</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="scanner-card">
+          <div class="scanner-window scan-demo">
+            <div class="scan-frame"></div>
+            <img
+              class="scanner-bottle"
+              src="https://purepng.com/public/uploads/large/purepng.com-water-bottlebottle-food-objects-water-drink-plastic-aquafina-liquid-mineral-941524634045ongiq.png"
+              alt="Plastic bottle"
+            />
+          </div>
+          <p id="scannerStatus" data-i18n="scanAnimation">First scan animation: bottle verified.</p>
+        </section>
+      </section>
+
+      <section id="profileView" class="profile-setup hidden">
+        <div>
+          <p class="eyebrow" data-i18n="firstLogin">First login only</p>
+          <h1 data-i18n="profileTitle">Enter your details</h1>
+        </div>
+        <form id="profileForm">
+          <label>
+            <span data-i18n="username">Username</span>
+            <input id="fullNameInput" required autocomplete="name" />
+          </label>
+          <label>
+            <span data-i18n="phone">Phone number</span>
+            <input id="phoneInput" required autocomplete="tel" />
+          </label>
+          <label>
+            <span data-i18n="email">Email ID</span>
+            <input id="emailInput" required type="email" autocomplete="email" />
+          </label>
+          <button class="primary-button" type="submit" data-i18n="saveContinue">
+            Submit and continue
+          </button>
+        </form>
+      </section>
+
+      <section id="dashboardView" class="dashboard hidden">
+        <section class="dashboard-hero">
+          <h1 data-i18n="heroTitle">Namma Ooru. Namma Poruppu.</h1>
+
+          <div class="user-card">
+            <img id="profileAvatar" alt="" />
+            <div>
+              <span data-i18n="verified">Registered volunteer</span>
+              <strong id="profileName">Volunteer</strong>
+              <small id="profileEmail"></small>
+            </div>
+          </div>
+
+          <h2 id="welcomeTitle">Welcome</h2>
+          <p class="kural-label" data-i18n="articleBadge">Awareness article</p>
+          <p class="kural" data-i18n="articleBody">
+            Plastic thrown near beaches and water bodies can travel into the sea, where fish,
+            turtles, birds, and other animals may eat it or become trapped in it. Using a dustbin
+            and recording every bottle creates proof of participation and builds a cleaner public
+            habit.
+          </p>
+
+          <form id="bottleForm" class="bottle-form">
+            <label>
+              <span data-i18n="bottleInput">How many bottles did you put in the dustbin?</span>
+              <input id="bottleInput" min="1" type="number" value="1" />
+            </label>
+            <button class="primary-button submit-button" type="submit" data-i18n="submitBottle">
+              Submit bottles
+            </button>
+          </form>
+
+          <div class="score-grid">
+            <div><span data-i18n="bottles">Bottles collected</span><strong id="bottleCount">0</strong></div>
+            <div><span data-i18n="points">Total points</span><strong id="pointCount">0</strong></div>
+            <div><span data-i18n="remaining">Points to 500</span><strong id="remainingCount">500</strong></div>
+          </div>
+          <div class="progress-bar"><span id="heroProgressFill"></span></div>
+          <p id="certificateProgress" class="status-line"></p>
+          <div class="impact-summary">
+            <article>
+              <span class="summary-icon">01</span>
+              <strong>Record</strong>
+              <p>Submit every bottle you place in the dustbin.</p>
+            </article>
+            <article>
+              <span class="summary-icon">02</span>
+              <strong>Understand</strong>
+              <p>Watch the impact scene change after your action.</p>
+            </article>
+            <article>
+              <span class="summary-icon">03</span>
+              <strong>Earn</strong>
+              <p>Reach 500 points to unlock the certificate.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="congratsPopup" class="congrats-popup hidden">
+          <strong data-i18n="congrats">Congratulations!</strong>
+          <span id="congratsText"></span>
+        </section>
+
+        <section id="seaScene" class="sea-scene">
+          <img
+            class="sea-bg"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Entangled_green_sea_turtle_%287656597150%29.jpg/1024px-Entangled_green_sea_turtle_%287656597150%29.jpg"
+            alt=""
+          />
+          <div class="scene-copy">
+            <p class="eyebrow" data-i18n="liveImpact">Live impact</p>
+            <h2 id="sceneTitle">Plastic waste is hurting water life.</h2>
+            <p id="sceneText">Submit your bottle action to clean the ocean scene.</p>
+          </div>
+          <img
+            class="real-bottle sea-bottle"
+            src="https://purepng.com/public/uploads/large/purepng.com-water-bottlebottle-food-objects-water-drink-plastic-aquafina-liquid-mineral-941524634045ongiq.png"
+            alt="Plastic bottle"
+          />
+          <img
+            class="sea-animal turtle"
+            src="https://purepng.com/public/uploads/large/purepng.com-turtleshellanimalseaoceanreptileturtletortoise-981524667121fvwwy.png"
+            alt="Sea turtle"
+          />
+          <img
+            class="sea-animal fish"
+            src="https://www.pngmart.com/files/22/Clown-Fish-PNG.png"
+            alt="Sea fish"
+          />
+          <span class="waste bag"></span>
+          <span class="waste cup"></span>
+          <span class="waste wrapper"></span>
+          <button id="viewCertificateButton" class="secondary-button impact-next hidden" type="button" data-i18n="viewCertificate">
+            View certificate
+          </button>
+        </section>
+
+        <section class="cleanup-compare-section">
+          <div class="section-head compact">
+            <div>
+              <p class="eyebrow">Clean or not clean</p>
+              <h2>Move bottles into the dustbin</h2>
+            </div>
+          </div>
+          <div id="cleanupCompare" class="cleanup-compare">
+            <div class="cleanup-layer cleanup-before" aria-hidden="true">
+              <span class="scene-label dirty-label">Not clean</span>
+              <span class="compare-dustbin empty-bin"></span>
+              <span class="ground-bottle bottle-a"></span>
+              <span class="ground-bottle bottle-b"></span>
+              <span class="ground-bottle bottle-c"></span>
+              <span class="ground-bottle bottle-d"></span>
+              <span class="ground-bottle bottle-e"></span>
+              <span class="ground-bottle bottle-f"></span>
+            </div>
+            <div class="cleanup-layer cleanup-after" aria-hidden="true">
+              <span class="scene-label clean-label">Clean</span>
+              <span class="compare-dustbin full-bin"></span>
+              <span class="bin-bottle bin-bottle-a"></span>
+              <span class="bin-bottle bin-bottle-b"></span>
+              <span class="bin-bottle bin-bottle-c"></span>
+              <span class="bin-bottle bin-bottle-d"></span>
+              <span class="shine-mark shine-one"></span>
+              <span class="shine-mark shine-two"></span>
+              <span class="shine-mark shine-three"></span>
+            </div>
+            <div class="cleanup-cursor-path" aria-hidden="true">
+              <span>Move cursor across</span>
+            </div>
+          </div>
+        </section>
+
+        <section id="achievementCard" class="achievement-card certificate-gate hidden">
+          <span class="achievement-medal"></span>
+          <div>
+            <p class="eyebrow" data-i18n="achievement">Achievement</p>
+            <h2 id="achievementTitle">Certificate locked</h2>
+            <p id="achievementText">Collect 50 bottles to unlock your Plastic Awareness Certificate.</p>
+          </div>
+        </section>
+
+        <section id="certificateSection" class="certificate-section hidden">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow" data-i18n="reward">Reward</p>
+              <h2 data-i18n="certificateTitle">Plastic Awareness Certificate</h2>
+            </div>
+            <button id="downloadCertificateButton" class="secondary-button" type="button" disabled data-i18n="downloadCertificate">
+              Download Certificate
+            </button>
+          </div>
+          <div id="certificatePreview" class="certificate-preview">
+            <img class="certificate-template" src="./assets/certificate-template.png" alt="Certificate template" />
+            <div id="certificateName" class="certificate-name-overlay">Your Name</div>
+            <span id="certificateText" class="hidden">Certificate text</span>
+            <span id="certificateBottles" class="hidden">0 bottles collected</span>
+            <span id="certificatePoints" class="hidden">0 points</span>
+            <span id="certificateDate" class="hidden">Date</span>
+            <small id="certificateNumber" class="hidden">Certificate unlocks after 500 points</small>
+          </div>
+        </section>
+
+        <section class="video-section">
+          <div class="section-head compact">
+            <div>
+              <p class="eyebrow">Awareness Video</p>
+              <h2>Plastic Awareness</h2>
+            </div>
+          </div>
+          <div class="video-frame">
+            <video controls preload="metadata" playsinline>
+              <source src="Video Project 7.mp4" type="video/mp4" />
+              Your browser does not support this video.
+            </video>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <div id="toast" class="toast hidden"></div>
+    <div id="celebrationOverlay" class="celebration-overlay hidden" aria-live="polite">
+      <div class="celebration-card">
+        <div class="celebration-glow"></div>
+        <div class="party-popper left-popper"></div>
+        <div class="party-popper right-popper"></div>
+        <div id="confettiBurst" class="confetti-burst"></div>
+        <div class="success-badge">✓</div>
+        <p class="eyebrow" data-i18n="congrats">Congratulations!</p>
+        <h2 id="celebrationTitle">Bottle submitted</h2>
+        <p id="celebrationText"></p>
+        <div class="celebration-stats">
+          <span id="celebrationBottleCount">1 bottle</span>
+          <strong id="celebrationPoints">10 points</strong>
+        </div>
+      </div>
+    </div>
+    <script src="./app.js"></script>
+  </body>
+</html>
